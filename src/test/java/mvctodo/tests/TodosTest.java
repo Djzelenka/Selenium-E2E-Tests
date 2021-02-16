@@ -32,6 +32,10 @@ public class TodosTest {
     assertEquals("Title is correct", driver.getCurrentUrl(), "http://localhost:3000/");
   }
 
+  @Test
+  public void siteCheckFailure() {
+    assertEquals("Title is correct", driver.getCurrentUrl(), "http://localhost/");
+  }
 
   @Test
   public void addATodo() {
@@ -39,6 +43,7 @@ public class TodosTest {
     home.submit_add_todo("something");
     WebElement todo = driver.findElement(By.cssSelector(".view"));
     assertEquals(todo.getText(), "something");
+    home.click_destroy_todo();
   }
 
   @Test
@@ -58,9 +63,11 @@ public class TodosTest {
     HomePage home = new HomePage(driver);
     home.submit_add_todo("something");
     home.click_todo_check();
-    WebElement todo = driver.findElement(By.xpath("/html/body/section/section/div/section/ul/li"));
-
+//    WebElement todo = driver.findElement(By.xpath("/html/body/section/section/div/section/ul/li"));
+    WebElement todo = driver.findElement(By.cssSelector("#todo-list > li"));
+    todo.getAttribute("style");
     assertEquals(todo.getAttribute("className"), "todo completed");
+    home.click_destroy_todo();
   }
 
   @Test
@@ -76,11 +83,19 @@ public class TodosTest {
         .findElement(By.xpath("/html/body/section/section/div/section/ul/li[2]/div"));
     assertEquals(todoItemOne.getText(), "something else");
     assertEquals(todoItemTwo.getText(), "something more");
-  }
+    home.click_destroy_todo();
+    home.click_destroy_todo();
+    }
 
-  @AfterClass
-  public static void close() {
-    driver.close();
-    driver.quit();
-  }
+
+//  @AfterClass
+//  public static void close()  {
+//    driver.close();
+//    driver.quit();
+//
+////    Unsure if this will correct the clean-up issue.
+////    driver.get("chrome://settings/clearBrowserData");
+////    Thread.sleep(10000);
+////    driver.findElement(By.xpath("//*[@id='clearBrowsingDataConfirm']")).click();
+//  }
 }

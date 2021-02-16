@@ -27,7 +27,7 @@ public class HomePage {
   @FindBy(xpath = "/html/body/section/section/div/section/ul/li[1]/div/button")
   WebElement destroy_todo;
 
-  @FindBy(xpath = "  /html/body/section/section/div/section/ul/li/div/input")
+  @FindBy(xpath = "/html/body/section/section/div/section/ul/li/div/input")
   WebElement todo_check;
 
   @FindBy(xpath = "/html/body/section/section/div/section/ul/li[1]")
